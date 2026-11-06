@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layout/navbar";
 import "./globals.css";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: {
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100">
-        <Navbar />
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
         <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-12">
           {children}
         </main>

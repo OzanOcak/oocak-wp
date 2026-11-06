@@ -1,4 +1,3 @@
-
 <?php
 
 if (!defined('ABSPATH')) {
@@ -103,6 +102,13 @@ function oocak_nx_save_article() {
         admin_url('admin.php')
     );
 
-    wp_safe_redirect($redirect_url, 303);
+    if (!headers_sent($file, $line)) {
+    wp_safe_redirect($redirect_url);
     exit;
+}
+
+wp_die(
+    'Headers already sent in ' . esc_html($file) .
+    ' on line ' . esc_html($line)
+);
 }

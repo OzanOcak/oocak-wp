@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createMarkdownFile } from "@/lib/blog/storage";
+import { revalidateTag } from "next/cache";
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,6 +16,8 @@ export async function POST(request: NextRequest) {
     }
 
     await createMarkdownFile(filename, content);
+
+    revalidateTag("blog", "max");
 
     return NextResponse.json(
       {

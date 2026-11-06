@@ -1,4 +1,3 @@
-
 <?php
 
 if (!defined('ABSPATH')) {
@@ -187,7 +186,36 @@ function oocak_nx_render_admin_page() {
 
                 </form>
 
-            </main>
+                <?php if (!$is_new && $article) : ?>
+
+        <hr style="margin:24px 0;" />
+
+        <form
+        method="post"
+        action="<?php echo esc_url(admin_url('admin-post.php')); ?>"
+        >
+        <input
+            type="hidden"
+            name="action"
+            value="oocak_nx_publish_article"
+        />
+
+        <?php wp_nonce_field('oocak_nx_publish_article'); ?>
+
+        <input
+            type="hidden"
+            name="article_id"
+            value="<?php echo esc_attr($article->id); ?>"
+        />
+
+        <button type="submit" class="button button-primary">
+            Publish to Next.js
+        </button>
+        </form>
+
+        <?php endif; ?>
+
+        </main>
 
         </div>
 
